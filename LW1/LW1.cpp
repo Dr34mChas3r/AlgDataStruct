@@ -1,19 +1,17 @@
 #include <iostream>
 #include <cmath>
-
 using namespace std;
-void readInput(double& x_start, double& x_end, double& step, int& n) {
-    cout << "Enter the start of the interval: ";
-    cin >> x_start;
-    cout << "Enter the end of the interval: ";
-    cin >> x_end;
-    cout << "Enter the step size: ";
-    cin >> step;
-    cout << "Enter the value of n: ";
-    cin >> n;
-}
 
-double compute(double x, int n) {
+bool readData(double& start, double& end, double& step, int& n) {
+	cout << "Input start, end of interval, step and value of n: ";
+	cin >> start >> end >> step >> n;
+	if (start >= end || step <= 0 || n == 0) {
+		cerr << "Wrong data" << endl;
+		return false;
+	}
+	return true;
+}
+double y(double x, int n) {
     if (x <= 0) {
         double sum = 0;
         for (int i = 0; i <= n; i++) {
@@ -31,16 +29,20 @@ double compute(double x, int n) {
         return fabs(product);
     }
 }
-void output(double& x_start, double& x_end, double& step, int& n) {
-    cout << "x:  y(x,n):" << endl;
-    for (double x = x_start; x <= x_end; x += step) { 
-        cout << x << "  " << compute(x, n) << endl;
+void outputData(double start, double end, double step, int n)
+{
+    cout << "x\ty" << endl;
+    for (double x = start; x <= end; x += step)
+    {
+        cout << x << "\t" << y(x, n) << endl;
     }
 }
 int main() {
-    double x_start, x_end, step;
+    double start, end, step;
     int n;
-    readInput(x_start, x_end, step, n);
-    output(x_start, x_end, step, n);
-    return 0;
+    if (readData(start, end, step, n)) {
+        outputData(start, end, step, n);
+        return 0;
+    }
+    return -1;
 }
