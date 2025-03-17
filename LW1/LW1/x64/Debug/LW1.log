@@ -1,0 +1,3 @@
+﻿  LW1.cpp
+C:\Users\serhiy\source\repos\AlgDataStruct\LW1\LW1.cpp(33,1): warning C4715: 'compute': not all control paths return a value
+  LW1.vcxproj -> C:\Users\serhiy\source\repos\AlgDataStruct\LW1\x64\Debug\LW1.exe

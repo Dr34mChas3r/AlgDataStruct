@@ -1,20 +1,47 @@
-// LW1.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <cmath>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+void readInput(double& x_start, double& x_end, double& step, int& n) {
+    cout << "Enter the start of the interval: ";
+    cin >> x_start;
+    cout << "Enter the end of the interval: ";
+    cin >> x_end;
+    cout << "Enter the step size: ";
+    cin >> step;
+    cout << "Enter the value of n: ";
+    cin >> n;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+double compute(double x, int n) {
+    if (x <= 0) {
+        double sum = 0;
+        for (int i = 0; i <= n; i++) {
+            sum += pow(x - i, 2);
+        }
+        return sum;
+    }
+    if (x > 0) {
+        double product = 1;
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= i; j++) {
+                product *= (x - i - 2 * j);
+            }
+        }
+        return product;
+    }
+}
+void output(double& x_start, double& x_end, double& step, int& n) {
+    cout << "x:  y(x, n):" << endl;
+    for (double x = x_start; x <= x_end; x += step) { // поправити мінус нуль
+        cout << x << "  " << compute(x, n) << endl;
+    }
+}
+int main() {
+    double x_start, x_end, step;
+    int n;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    readInput(x_start, x_end, step, n);
+    output(x_start, x_end, step, n);
+    return 0;
+}
