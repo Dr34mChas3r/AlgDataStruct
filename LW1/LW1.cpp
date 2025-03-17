@@ -24,23 +24,22 @@ double compute(double x, int n) {
     if (x > 0) {
         double product = 1;
         for (int i = 1; i <= n; i++) {
-            for (int j = 0; j <= i; j++) {
+            for (int j = 0; j < n; j++) {
                 product *= (x - i - 2 * j);
             }
         }
-        return product;
+        return fabs(product);
     }
 }
 void output(double& x_start, double& x_end, double& step, int& n) {
-    cout << "x:  y(x, n):" << endl;
-    for (double x = x_start; x <= x_end; x += step) { // поправити мінус нуль
+    cout << "x:  y(x,n):" << endl;
+    for (double x = x_start; x <= x_end; x += step) { 
         cout << x << "  " << compute(x, n) << endl;
     }
 }
 int main() {
     double x_start, x_end, step;
     int n;
-
     readInput(x_start, x_end, step, n);
     output(x_start, x_end, step, n);
     return 0;
