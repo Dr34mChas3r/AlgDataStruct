@@ -1,21 +1,7 @@
-
 #include <iostream>
 #include <fstream>
 #include <cmath>
 using namespace std;
-
-bool readData(double& start, double& end, double& step, int& n) {
-    /* cout << "Input start, end of interval, step and value of n: ";
-  cin >> start >> end >> step >> n;
-  if (start >= end || step <= 0 || n == 0) {
-      cerr << "Wrong data" << endl;
-      return false;  }*/
-    start = -10;
-    end = 10;
-    step = 1;
-    n = 2;
-    return true;
-}
 
 double y(double x, int n) {
     if (x <= 0) {
@@ -25,7 +11,7 @@ double y(double x, int n) {
         }
         return sum;
     }
-    if (x > 0) {
+    else {
         double product = 1;
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j < n; j++) {
@@ -36,94 +22,69 @@ double y(double x, int n) {
     }
 }
 
-void outputData(double start, double end, double step, int n)
-{
-    cout << "x\ty" << endl;
-    for (double x = start; x <= end; x += step)
-    {
-        cout << x << "\t" << y(x, n) << endl;
-    }
-    int rows = (end - start) / step + 1;
-    int cols = 2;
-    double** secondArr = new double* [rows];
-    for (int i = 0; i < rows; i++) {
-        secondArr[i] = new double[cols];
-    }
-    double x = start;
-    for (int i = 0; i < rows; i++) {
-        secondArr[i][0] = x;
-        secondArr[i][1] = y(x, n);
-        x += step;
-    }
-    ofstream outputFile("output.txt");
-    if (!outputFile) {
-        cerr << "Error opening file for writing!" << endl;
-        return;
-    }
-    outputFile << "x\ty(x, n)" << endl;
-    for (int i = 0; i < rows; i++) {
-        outputFile << secondArr[i][0] << "\t" << secondArr[i][1] << endl;
-    }
-    outputFile.close();
-    cout << "Data has been written to output.txt" << endl;
-    for (int i = 0; i < rows; i++) {
-        delete[] secondArr[i];
-    }
-    delete[] secondArr;
-}
+int main() {
+    const double start = -10;
+    const double end = 10;
+    const double step = 1;
+    const int n = 2;
 
-int firstarrayfunc() {
-    ifstream inputFile("input.txt");
-    if (!inputFile) {
-        cerr << "Error opening file!" << endl;
-        return -1;
+    ifstream inFile("input.txt");
+    if (!inFile) {
+        cerr << "Error opening input.txt" << endl;
+        return 1;
     }
+
     int rows, cols;
-    inputFile >> rows >> cols;
-    cout << "Size of array: " << rows << " x " << cols << endl;
+    inFile >> rows >> cols;
 
-    int** FirstArr = new int* [rows];
-
-    int** rowPtr = FirstArr;
-    for (int i = 0; i < rows; i++, rowPtr++) {
-        *rowPtr = new int[cols];
+    int** array = new int* [rows];
+    for (int i = 0; i < rows; i++) {
+        array[i] = new int[cols];
     }
 
-    rowPtr = FirstArr;
-    for (int i = 0; i < rows; i++, rowPtr++) {
-        int* colPtr = *rowPtr;
-        for (int j = 0; j < cols; j++, colPtr++) {
-            inputFile >> *colPtr;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            inFile >> array[i][j];
         }
     }
-    inputFile.close();
+    inFile.close();
 
-    cout << "Read arr:" << endl;
-    rowPtr = FirstArr;
-    for (int i = 0; i < rows; i++, rowPtr++) {
-        int* colPtr = *rowPtr;
-        for (int j = 0; j < cols; j++, colPtr++) {
-            cout << *colPtr << " ";
+    double** resultArray = new double* [rows];
+    for (int i = 0; i < rows; i++) {
+        resultArray[i] = new double[cols];
+    }
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            int* ptr = &array[i][j];
+            *(resultArray[i] + j) = y(*ptr, n); 
+        }
+    }
+
+    ofstream outFile("output.txt");
+    if (!outFile) {
+        cerr << "Error opening output.txt" << endl;
+        return 2;
+    }
+
+    cout << "Result array (y(x, n)):" << endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            cout << resultArray[i][j] << "\t";
+            outFile << resultArray[i][j] << "\t";
         }
         cout << endl;
+        outFile << endl;
     }
 
-    rowPtr = FirstArr;
-    for (int i = 0; i < rows; i++, rowPtr++) {
-        delete[] * rowPtr;
+    outFile.close();
+
+    for (int i = 0; i < rows; i++) {
+        delete[] array[i];
+        delete[] resultArray[i];
     }
-    delete[] FirstArr;
+    delete[] array;
+    delete[] resultArray;
 
     return 0;
-}
-
-int main() {
-    double start, end, step;
-    int n;
-    firstarrayfunc();
-    if (readData(start, end, step, n)) {
-        outputData(start, end, step, n);
-        return 0;
-    }
-    return -1;
 }
