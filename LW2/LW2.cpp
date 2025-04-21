@@ -23,68 +23,71 @@ double y(double x, int n) {
 }
 
 int main() {
-    const double start = -10;
-    const double end = 10;
-    const double step = 1;
-    const int n = 2;
-
     ifstream inFile("input.txt");
-    if (!inFile) {
-        cerr << "Error opening input.txt" << endl;
+    ofstream outFile("output.txt");
+
+    if (!inFile || !outFile) {
+        cerr << "Error in opening file(s)!" << endl;
         return 1;
     }
 
     int rows, cols;
     inFile >> rows >> cols;
 
-    int** array = new int* [rows];
+    double** inputParams = new double* [rows];
     for (int i = 0; i < rows; i++) {
-        array[i] = new int[cols];
+        *(inputParams + i) = new double[cols];
     }
 
     for (int i = 0; i < rows; i++) {
         for (int j = 0; j < cols; j++) {
-            inFile >> array[i][j];
-        }
-    }
-    inFile.close();
-
-    double** resultArray = new double* [rows];
-    for (int i = 0; i < rows; i++) {
-        resultArray[i] = new double[cols];
-    }
-
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            int* ptr = &array[i][j];
-            *(resultArray[i] + j) = y(*ptr, n); 
+            inFile >> *(*(inputParams + i) + j);
         }
     }
 
-    ofstream outFile("output.txt");
-    if (!outFile) {
-        cerr << "Error opening output.txt" << endl;
-        return 2;
-    }
-
-    cout << "Result array (y(x, n)):" << endl;
     for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            cout << resultArray[i][j] << "\t";
-            outFile << resultArray[i][j] << "\t";
+        double start = *(*(inputParams + i) + 0);
+        double end = *(*(inputParams + i) + 1);
+        double step = *(*(inputParams + i) + 2);
+        int n = (int)(*(*(inputParams + i) + 3)); 
+
+        int count = ((end - start) / step) + 1;
+        double* results = new double[count];
+
+        double x = start;
+        for (int j = 0; j < count; j++, x += step) {
+            *(results + j) = y(x, n);
         }
+
+        cout << "Results if: start = " << start
+            << ", end = " << end
+            << ", step = " << step
+            << ", n = " << n << ":\n"
+        outFile << "Results if: start = " << start
+            << ", end = " << end
+            << ", step = " << step
+            << ", n = " << n << ":\n";
+
+        x = start;
+        for (int j = 0; j < count; j++, x += step) {
+            cout << "x = " << x << ", y = " << *(results + j) << endl;
+            outFile << "x = " << x << ", y = " << *(results + j) << endl;
+        }
+
         cout << endl;
         outFile << endl;
+
+        delete[] results;
     }
 
-    outFile.close();
-
+    // Звільнення пам'яті
     for (int i = 0; i < rows; i++) {
-        delete[] array[i];
-        delete[] resultArray[i];
+        delete[] * (inputParams + i);
     }
-    delete[] array;
-    delete[] resultArray;
+    delete[] inputParams;
+
+    inFile.close();
+    outFile.close();
 
     return 0;
 }
