@@ -79,8 +79,6 @@ int main() {
 
         delete[] results;
     }
-
-    // Звільнення пам'яті
     for (int i = 0; i < rows; i++) {
         delete[] * (inputParams + i);
     }
