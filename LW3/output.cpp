@@ -3,14 +3,14 @@
 
 using namespace std;
 
-void outputTable(double start, double end, double step, int n, MathFunc fun) {
+void PrintFunctionTable(double start, double end, double step, int n, MathFunction func) {
     cout << "x \ty(x)" << endl;
 
     for (double x = start; x <= end; x += step) {
-        double y = fun(x, n);
+        double y = func(x, n);
 
         cout << x << "\t";
-        if (y == -1 && fun == FunctionSqrtX) {
+        if (y == -1 && func == squareRoot) {
             cout << "y is not defined" << endl;
         }
         else {

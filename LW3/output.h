@@ -2,8 +2,8 @@
 #ifndef FUNCTION_TABLE_H
 #define FUNCTION_TABLE_H
 
-typedef double (*MathFunc)(double, int);
-double FunctionSqrtX(double x, int n); // porivnyanna v output.cpp
-void outputTable(double start, double end, double step, int n, MathFunc fun);
+typedef double (*MathFunction)(double, int);
+double squareRoot(double x, int n); // Dlya porivnyannya v file output.cpp ( if x<0, y=not defined )
+void PrintFunctionTable(double start, double end, double step, int n, MathFunction func);
 
 #endif
