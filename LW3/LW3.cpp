@@ -1,6 +1,6 @@
 #include <iostream>
 #include <cmath>
-#include "output_table.h"
+#include "output.h"
 
 using namespace std;
 

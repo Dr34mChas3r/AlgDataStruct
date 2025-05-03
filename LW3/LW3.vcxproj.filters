@@ -18,12 +18,12 @@
     <ClCompile Include="LW3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="output_table.cpp">
+    <ClCompile Include="output.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="output_table.h">
+    <ClInclude Include="output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

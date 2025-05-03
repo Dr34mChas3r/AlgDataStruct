@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{87f151d2-da17-45f0-973a-53897cb93bd9}</ProjectGuid>
+    <ProjectGuid>{18dea2ba-a23e-4abf-9cf8-7d9a035d7a05}</ProjectGuid>
     <RootNamespace>LW3</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -128,10 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="LW3.cpp" />
-    <ClCompile Include="output_table.cpp" />
+    <ClCompile Include="output.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="output_table.h" />
+    <ClInclude Include="output.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
