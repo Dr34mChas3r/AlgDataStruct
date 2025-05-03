@@ -1,5 +1,0 @@
-﻿  LW3.cpp
-  output.cpp
-  Generating Code...
-C:\Users\serhiy\source\repos\AlgDataStruct\LW3\LW3.cpp(24,1): warning C4715: 'FunctionY': not all control paths return a value
-  LW3.vcxproj -> C:\Users\serhiy\source\repos\AlgDataStruct\LW3\x64\Debug\LW3.exe
