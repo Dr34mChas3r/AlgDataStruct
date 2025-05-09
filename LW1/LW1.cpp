@@ -20,13 +20,15 @@ double y(double x, int n) {
         return sum;
     }
     if (x > 0) {
-        double product = 1;
+        double sum = 0;
+	    double product=1;
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j < n; j++) {
-                product *= (x - i - 2 * j);
+                sum += (x - i - 2 * j);
             }
+		product *= sum;
         }
-        return fabs(product);
+        return product;
     }
 }
 void outputData(double start, double end, double step, int n)
