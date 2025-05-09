@@ -17,8 +17,11 @@ double y(double x, int n) {
             for (int j = 0; j < n; j++) {
                 product *= (x - i - 2 * j);
             }
+              if (product == 0.0) {
+                return 0.0;
+            }
         }
-        return fabs(product);
+        return product;
     }
 }
 
