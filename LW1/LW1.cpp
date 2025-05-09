@@ -3,13 +3,13 @@
 using namespace std;
 
 bool readData(double& start, double& end, double& step, int& n) {
-	cout << "Input start, end of interval, step and value of n: ";
-	cin >> start >> end >> step >> n;
-	if (start >= end || step <= 0 || n == 0) {
-		cerr << "Wrong data" << endl;
-		return false;
-	}
-	return true;
+    cout << "Input start, end of interval, step and value of n: ";
+    cin >> start >> end >> step >> n;
+    if (start >= end || step <= 0 || n == 0) {
+        cerr << "Wrong data" << endl;
+        return false;
+    }
+    return true;
 }
 double y(double x, int n) {
     if (x <= 0) {
@@ -21,12 +21,15 @@ double y(double x, int n) {
     }
     if (x > 0) {
         double sum = 0;
-	    double product=1;
+        double product = 1;
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j < n; j++) {
                 sum += (x - i - 2 * j);
             }
-		product *= sum;
+            product *= sum;
+            if (product == 0.0) {
+                return 0.0;
+            }
         }
         return product;
     }
