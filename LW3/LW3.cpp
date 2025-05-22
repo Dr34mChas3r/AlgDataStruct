@@ -26,10 +26,6 @@ double FunctionY(double x, int n) {
 	}
 }
 
-double squareRoot(double x, int n) {
-	return (x < 0) ? -1 : sqrt(x);
-}
-
 int main() {
 	double start, end, step;
 	int n;
