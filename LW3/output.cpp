@@ -18,3 +18,7 @@ void PrintFunctionTable(double start, double end, double step, int n, MathFuncti
         }
     }
 }
+
+double squareRoot(double x, int n) {
+	return (x < 0) ? -1 : sqrt(x);
+}
