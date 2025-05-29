@@ -1,92 +1,100 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#define N 6
-#define SIZE ((10 * N) % 51)
-
+#include <iostream>  
+#include <ctime>  
+#define N (10 * 6) % 51  
 using namespace std;
 
-void printArray(int arr[], int size) {
-    for (int i = 0; i < size; ++i)
-        cout << arr[i] << " ";
-    cout << endl;
+void Random(int array[], int size)
+{
+	for (int i = 0; i < size; i++) {
+		array[i] = rand() % 81 - 40;
+	}
 }
 
-void bubbleSort(int a[], int size) {
-    cout << "\n//// Bubble Sort ////\n";
-    for (int pass = 0; pass < size - 1; ++pass) {
-        for (int j = 0; j < size - pass - 1; ++j) {
-            if (a[j] > a[j + 1]) {
-                int temp = a[j];
-                a[j] = a[j + 1];
-                a[j + 1] = temp;
-            }
-        }
-        cout << "After pass " << pass + 1 << ": ";
-        printArray(a, size);
-    }
-    cout << "Sorted array: ";
-    printArray(a, size);
+void printArr(int array[], int size)
+{
+	for (int i = 0; i < size; i++) {
+		cout << array[i] << " ";
+	}
+	cout << endl;
 }
 
-void insertSort(int a[], int size) {
-    cout << "\n//// Insert Sort ////\n";
-    for (int i = 1; i < size; ++i) {
-        int temp = a[i];
-        int j = i - 1;
-        while (j >= 0 && a[j] > temp) {
-            a[j + 1] = a[j];
-            --j;
-        }
-        a[j + 1] = temp;
+// Методи сортування                
 
-        cout << "After pass " << i << ": ";
-        printArray(a, size);
-    }
-    cout << "Sorted array: ";
-    printArray(a, size);
+void selectionSort(int array[], int size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+
+		for (int j = i + 1; j < size; j++)
+		{
+			if (array[j] < array[i])
+			{
+				swap(array[j], array[i]);
+			}
+		}
+		printArr(array, size);
+	}
 }
 
-void selectSort(int a[], int size) {
-    cout << "\n//// Select Sort ////\n";
-    for (int i = 0; i < size - 1; ++i) {
-        int minIndex = i;
-        for (int j = i + 1; j < size; ++j) {
-            if (a[j] < a[minIndex])
-                minIndex = j;
-        }
-        if (minIndex != i) {
-            int temp = a[i];
-            a[i] = a[minIndex];
-            a[minIndex] = temp;
-        }
-
-        cout << "After pass " << i + 1 << ": ";
-        printArray(a, size);
-    }
-    cout << "Sorted array: ";
-    printArray(a, size);
+void insertionSort(int array[], int size)
+{
+	for (int i = 1; i < size; i++)
+	{
+		int key = array[i];
+		int j;
+		for (j = i - 1; j >= 0 && array[j] > key; j--)
+		{
+			array[j + 1] = array[j];
+		}
+		array[j + 1] = key;
+		printArr(array, size);
+	}
 }
 
-int main() {
-    srand(time(0));
-    int unsortedArr[SIZE];
 
-    cout << "Initial array: ";
-    for (int i = 0; i < SIZE; ++i) {
-        unsortedArr[i] = -20 * N + rand() % (40 * N + 1);
-        cout << unsortedArr[i] << " ";
-    }
-    cout << endl;
-
-    int bubbleArr[SIZE], insertArr[SIZE], selectArr[SIZE];
-    for (int i = 0; i < SIZE; ++i) {
-        bubbleArr[i] = insertArr[i] = selectArr[i] = unsortedArr[i];
-    }
-
-    bubbleSort(bubbleArr, SIZE);
-    insertSort(insertArr, SIZE);
-    selectSort(selectArr, SIZE);
-
-    return 0;
+void bubbleSort(int array[], int size)
+{
+	for (int i = 0; i < size - 1; i++)
+	{
+		for (int j = size - 1; j > i; j--)
+		{
+			if (array[j] < array[j - 1])
+			{
+				swap(array[j], array[j - 1]);
+			}
+		}
+		printArr(array, size);
+	}
 }
+
+
+
+int main()
+{
+	srand(time(0));
+	int size = N;
+	int array[size];
+	int sortMethod;
+	cout << "Enter the type of array sort (1 - selection, 2 - insertion, 3 - bubble): " << endl;
+	cin >> sortMethod;
+	switch (sortMethod) {
+	case 1:
+		Random(array, size);
+		printArr(array, size);
+		selectionSort(array, size);
+		break;
+	case 2:
+		Random(array, size);
+		printArr(array, size);
+		insertionSort(array, size);
+		break;
+	case 3:
+		Random(array, size);
+		printArr(array, size);
+		bubbleSort(array, size);
+		break;
+	default:
+		cout << "Incorrect option. Enter number from 1 to 3 for choosing type of array sort";
+	}
+}
+
