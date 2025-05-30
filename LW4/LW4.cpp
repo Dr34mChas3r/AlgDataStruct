@@ -18,8 +18,6 @@ void printArr(int array[], int size)
 	cout << endl;
 }
 
-// Методи сортування                
-
 void selectionSort(int array[], int size)
 {
 	for (int i = 0; i < size - 1; i++)
